@@ -70,6 +70,7 @@ class Post(models.Model):
 
 
 
+
     def __str__(self):
         return self.title
 
@@ -89,6 +90,7 @@ class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments',)
     user = models.ForeignKey(InstaUser, on_delete=models.CASCADE)
     comment = models.CharField(max_length=100)
+
 
 
     def __str__(self):

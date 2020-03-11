@@ -29,6 +29,7 @@ class PostsView(LoginRequiredMixin, ListView):
 class PostDetailView(LoginRequiredMixin, DetailView):
     model = Post
     template_name = 'post_detail.html'
+    login_url = 'login'
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
@@ -48,9 +49,12 @@ class ExploreView(LoginRequiredMixin, ListView):
 
 
 
-class UserDetailView(DetailView):
+
+
+class UserDetailView(LoginRequiredMixin, DetailView):
     model = InstaUser
     template_name = 'user_detail.html'
+    login_url = 'login'
 
 class PostCreateView(LoginRequiredMixin,CreateView):
     model = Post
@@ -61,15 +65,17 @@ class PostCreateView(LoginRequiredMixin,CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
-class PostUpdateView(UpdateView):
+class PostUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
     template_name = 'post_update.html'
     fields = ['title']
+    login_url = 'login'
 
 class PostDeleteView(DeleteView):
     model = Post
     template_name = 'post_delete.html'
     success_url= reverse_lazy("posts")
+    login_url = 'login'
 
 
 class SignUp(CreateView):
