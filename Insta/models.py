@@ -57,7 +57,7 @@ class Post(models.Model):
         null=True,
         on_delete=models.CASCADE,
         related_name='my_posts'
-    )
+        )
     title = models.TextField(blank=True, null=True)
     image = ProcessedImageField(
         upload_to = 'static/images/posts',
@@ -65,7 +65,13 @@ class Post(models.Model):
         options = {'quality':100},
         blank=True,
         null=True
-    )
+        )
+    posted_on = models.DateTimeField(
+        auto_now_add=True,
+        editable=False,
+        blank=True,
+        null=True,
+        )
 
 
 
@@ -90,6 +96,7 @@ class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments',)
     user = models.ForeignKey(InstaUser, on_delete=models.CASCADE)
     comment = models.CharField(max_length=100)
+    posted_on = models.DateTimeField(auto_now_add=True, editable=False)
 
 
 

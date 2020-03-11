@@ -45,6 +45,8 @@ class ExploreView(LoginRequiredMixin, ListView):
     template_name = 'explore.html'
     login_url = 'login'
 
+    def get_queryset(self):
+        return Post.objects.all().order_by('-posted_on')[:20]
 
 
 
